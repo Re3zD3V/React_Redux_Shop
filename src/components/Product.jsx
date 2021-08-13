@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 
 class Product extends Component {
 
@@ -12,7 +12,9 @@ class Product extends Component {
 			<div className="container">
 				<img src={ `/images/${this.props.name}.png` } alt={ this.props.name } />
 				<p>Disponibilité:
-					<span></span>
+					<span className="count-products">
+						{ this.props[ this.props.name ] }
+					</span>
 				</p>
 				<button>Acheter</button>
 			</div>
@@ -20,4 +22,10 @@ class Product extends Component {
 	}
 }
 
-export default Product;
+const mapStateToProps = ( state, ownProps ) => {
+	return {
+		[ownProps.name] : state[ownProps.stateName][ownProps.name]
+	}
+}
+
+export default connect( mapStateToProps )( Product );

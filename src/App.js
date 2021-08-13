@@ -1,16 +1,16 @@
 import './App.css';
 import Product from './components/Product';
 import  { Provider } from 'react-redux';
-import store from './redux/store';
+import store, { APPLIANCE_STATE, ELECTRONIC_STATE } from './redux/store';
 
 function App() {
 	return (
 		<Provider store={ store }>
 			<div className="App">
-				<Product name={ "Phone" } />
-				<Product name={ "Tablet" } />
-				<Product name={ "Tv" } />
-				<Product name={ "Cooler" } />
+				<Product stateName= { ELECTRONIC_STATE } name={ "phone" } />
+				<Product stateName= { ELECTRONIC_STATE } name={ "tablet" } />
+				<Product stateName= { ELECTRONIC_STATE } name={ "tv" } />
+				<Product stateName= { APPLIANCE_STATE } name={ "cooler" } />
 			</div>
 		</Provider>
 	);
