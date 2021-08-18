@@ -1,9 +1,28 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+const getActionToDispatch = async ( stateName, name ) => {
+	let actionFileName = `${ stateName }Action`;
+	let productName = ( name ).charAt( 0 ).toUpperCase() + ( name ).slice( 1 );
+	let buyFuncName = `buy${ productName }`;
+
+	let actionFile = await import( `./../redux/${ stateName }/${ actionFileName }` );
+
+	return actionFile[ buyFuncName ];
+}
+
+const handleClick = ( stateName, name, dispatch ) => {
+	getActionToDispatch( stateName, name )
+	.then( action => {
+		dispatch( action() );
+	});
+}
 
 function Product(props) {
 
-	let countProducts = useSelector( state => state[props.stateName][props.name] );
+	const countProducts = useSelector( state => state[props.stateName][props.name] );
+	const dispatch = useDispatch();
+
 
 	return (
 		<div className="container">
@@ -13,7 +32,7 @@ function Product(props) {
 					{ countProducts }
 				</span>
 			</p>
-			<button>Acheter</button>
+			<button onClick={ () => handleClick( props.stateName, props.name, dispatch ) }>Acheter</button>
 		</div>
 	);
 }
