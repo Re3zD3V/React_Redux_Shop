@@ -6,7 +6,7 @@ import store, { APPLIANCE_STATE, ELECTRONIC_STATE } from './redux/store';
 function App() {
 	return (
 		<Provider store={ store }>
-			<div className="App">
+			<div className="App container py-4">
 				<Product stateName= { ELECTRONIC_STATE } name={ "phone" } />
 				<Product stateName= { ELECTRONIC_STATE } name={ "tablet" } />
 				<Product stateName= { ELECTRONIC_STATE } name={ "tv" } />
